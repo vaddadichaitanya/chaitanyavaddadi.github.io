@@ -71,7 +71,7 @@
   }
 
   .nav-links {
-    display: flex;
+    display: none; /* hamburger is the only nav */
     gap: 36px;
     list-style: none;
   }
@@ -788,11 +788,13 @@
     z-index: 150;
     pointer-events: none;
     visibility: hidden;
+    transition: visibility 0s linear 0.7s; /* delay hide until animation done */
   }
 
   .menu-overlay.open {
     pointer-events: all;
     visibility: visible;
+    transition: visibility 0s linear 0s; /* show immediately on open */
   }
 
   /* Animated background panels */
@@ -979,7 +981,6 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     nav { padding: 14px 20px; }
-    .nav-links { display: none; }
     .menu-content { padding: 100px 28px 48px; }
     section { padding: 72px 24px; }
     #hero { padding: 100px 24px 60px; }
@@ -991,11 +992,6 @@
     .hero-stats { gap: 28px; flex-wrap: wrap; }
     footer { flex-direction: column; gap: 8px; text-align: center; }
     .menu-footer { flex-direction: column; align-items: flex-start; }
-  }
-
-  @media (min-width: 901px) {
-    /* On desktop, hamburger is visible too — luxury feel */
-    .hamburger { display: flex; }
   }
 
   @media (max-width: 480px) {
