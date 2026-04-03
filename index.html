@@ -4,842 +4,752 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chaitanya Vaddadi — Financial Crime & AI Builder</title>
-<meta name="description" content="Financial Crime professional, AI builder, and algorithmic trader based in Bengaluru.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ── TOKENS ── */
-:root {
-  --bg:        #080f18;
-  --bg2:       #0d1824;
-  --bg3:       #111f2e;
-  --surface:   #0f1e2e;
-  --surface2:  #162334;
-  --border:    rgba(255,255,255,0.07);
-  --border2:   rgba(255,255,255,0.12);
-  --gold:      #c49a3c;
-  --gold2:     #e8bc64;
-  --ink:       #e8edf2;
-  --ink-mid:   #9fb3c8;
-  --ink-soft:  #5c7a94;
-  --accent:    #2a6496;
-  --accent2:   #3a85c4;
-  --green:     #3cbf8a;
-  --red:       #e05555;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-/* ── GRID BACKGROUND ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(42,100,150,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(42,100,150,0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ── NAV ── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 0 48px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(8,15,24,0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-}
-
-.nav-logo {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--ink);
-  letter-spacing: 0.02em;
-  text-decoration: none;
-}
-
-.nav-logo span { color: var(--gold); }
-
-.nav-links {
-  display: flex;
-  gap: 36px;
-  list-style: none;
-}
-
-.nav-links a {
-  font-size: 0.78rem;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover { color: var(--gold); }
-
-.nav-cta {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid var(--gold);
-  padding: 7px 18px;
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s;
-}
-
-.nav-cta:hover { background: var(--gold); color: var(--bg); }
-
-/* ── SECTIONS ── */
-section { position: relative; z-index: 1; }
-
-/* ── HERO ── */
-#hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 80px 48px 0;
-}
-
-.hero-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 80px;
-  align-items: center;
-}
-
-.hero-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  color: var(--gold);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  opacity: 0;
-  animation: fadeUp 0.6s ease 0.2s forwards;
-}
-
-.hero-eyebrow::before {
-  content: '// ';
-  opacity: 0.5;
-}
-
-.hero-name {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(3rem, 5.5vw, 5.5rem);
-  font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin-bottom: 16px;
-  overflow: hidden;
-}
-
-.hero-name-line {
-  display: block;
-  opacity: 0;
-  transform: translateY(60px);
-  animation: lineRise 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
-}
-
-.hero-name-line:nth-child(1) { animation-delay: 0.3s; }
-.hero-name-line:nth-child(2) { animation-delay: 0.45s; color: var(--gold); }
-
-.hero-role {
-  font-size: 1rem;
-  color: var(--ink-mid);
-  font-weight: 300;
-  margin-bottom: 28px;
-  opacity: 0;
-  animation: fadeUp 0.6s ease 0.7s forwards;
-}
-
-.hero-role strong { color: var(--ink); font-weight: 500; }
-
-.hero-desc {
-  font-size: 0.92rem;
-  color: var(--ink-soft);
-  line-height: 1.85;
-  max-width: 520px;
-  margin-bottom: 40px;
-  opacity: 0;
-  animation: fadeUp 0.6s ease 0.85s forwards;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: fadeUp 0.6s ease 1s forwards;
-}
-
-.btn-primary {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--bg);
-  background: var(--gold);
-  padding: 12px 28px;
-  text-decoration: none;
-  transition: background 0.2s, transform 0.2s;
-  display: inline-block;
-}
-
-.btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
-
-.btn-secondary {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-mid);
-  background: transparent;
-  border: 1px solid var(--border2);
-  padding: 12px 28px;
-  text-decoration: none;
-  transition: border-color 0.2s, color 0.2s, transform 0.2s;
-  display: inline-block;
-}
-
-.btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
-
-/* ── HERO CARD ── */
-.hero-card {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  padding: 32px;
-  opacity: 0;
-  animation: fadeUp 0.7s ease 0.6s forwards;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--gold), var(--accent2), transparent);
-}
-
-.card-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--ink-soft);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.stat-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 24px;
-}
-
-.stat { }
-
-.stat-val {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--gold);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.stat-label {
-  font-size: 0.72rem;
-  color: var(--ink-soft);
-  line-height: 1.4;
-}
-
-.divider { height: 1px; background: var(--border); margin: 20px 0; }
-
-.pill-list { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.pill {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  background: var(--bg3);
-  color: var(--ink-mid);
-  padding: 4px 10px;
-  border: 1px solid var(--border);
-  letter-spacing: 0.04em;
-}
-
-/* ── SCROLL INDICATOR ── */
-.scroll-hint {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  animation: fadeUp 0.5s ease 1.4s forwards;
-}
-
-.scroll-hint span {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-  color: var(--ink-soft);
-  text-transform: uppercase;
-}
-
-.scroll-line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(var(--gold), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-
-/* ── SECTION WRAPPER ── */
-.section-wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 100px 48px;
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 56px;
-}
-
-.section-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.68rem;
-  color: var(--gold);
-  letter-spacing: 0.1em;
-}
-
-.section-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-}
-
-.section-line {
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-/* ── ABOUT ── */
-#about { background: var(--bg2); }
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: start;
-}
-
-.about-text p {
-  font-size: 0.95rem;
-  color: var(--ink-mid);
-  line-height: 1.9;
-  margin-bottom: 20px;
-}
-
-.about-text p strong { color: var(--ink); font-weight: 500; }
-
-.about-text p:last-child { margin-bottom: 0; }
-
-.about-facts { display: grid; gap: 16px; }
-
-.fact-row {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--border);
-  opacity: 0;
-  transform: translateX(-16px);
-  transition: opacity 0.5s, transform 0.5s;
-}
-
-.fact-row.visible { opacity: 1; transform: translateX(0); }
-.fact-key { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; padding-top: 2px; }
-.fact-val { font-size: 0.86rem; color: var(--ink-mid); }
-.fact-val strong { color: var(--ink); font-weight: 500; }
-
-/* ── EXPERIENCE ── */
-#experience { background: var(--bg); }
-
-.timeline { position: relative; padding-left: 28px; }
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 8px; bottom: 0;
-  width: 1px;
-  background: linear-gradient(var(--gold), var(--border), transparent);
-}
-
-.exp-item {
-  position: relative;
-  margin-bottom: 56px;
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s, transform 0.6s cubic-bezier(0.16,1,0.3,1);
-}
-
-.exp-item.visible { opacity: 1; transform: translateY(0); }
-.exp-item:last-child { margin-bottom: 0; }
-
-.exp-item::before {
-  content: '';
-  position: absolute;
-  left: -32px; top: 6px;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 2px solid var(--ink-soft);
-  transition: border-color 0.3s, background 0.3s;
-  z-index: 2;
-}
-
-.exp-item.visible::before {
-  border-color: var(--gold);
-  background: var(--gold);
-  animation: dotPop 0.4s ease forwards;
-}
-
-.exp-meta {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 6px;
-  flex-wrap: wrap;
-}
-
-.exp-company {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.exp-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  padding: 3px 10px;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.exp-date {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.68rem;
-  color: var(--ink-soft);
-  margin-left: auto;
-}
-
-.exp-role {
-  font-size: 0.88rem;
-  color: var(--ink-mid);
-  margin-bottom: 16px;
-}
-
-.exp-loc { color: var(--ink-soft); font-size: 0.8rem; }
-
-.exp-body {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 24px 28px;
-  position: relative;
-  overflow: hidden;
-}
-
-.exp-body::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 3px; height: 100%;
-  background: var(--gold);
-  opacity: 0.6;
-}
-
-ul.exp-bullets { list-style: none; }
-
-ul.exp-bullets li {
-  font-size: 0.85rem;
-  color: var(--ink-mid);
-  padding-left: 20px;
-  position: relative;
-  margin-bottom: 8px;
-  line-height: 1.65;
-}
-
-ul.exp-bullets li::before {
-  content: '›';
-  position: absolute;
-  left: 0;
-  color: var(--gold);
-  font-weight: 500;
-}
-
-.hl { font-weight: 500; color: var(--ink); }
-.award-line { font-size: 0.78rem; color: var(--ink-soft); font-style: italic; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
-.award-line strong { color: var(--gold); font-style: normal; }
-
-/* ── PROJECTS ── */
-#projects { background: var(--bg2); }
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.proj-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 28px;
-  position: relative;
-  overflow: hidden;
-  cursor: default;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s, transform 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s;
-}
-
-.proj-card.visible { opacity: 1; transform: translateY(0); }
-
-.proj-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--gold), transparent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-}
-
-.proj-card:hover { border-color: var(--border2); box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
-.proj-card:hover::before { transform: scaleX(1); }
-
-.proj-icon {
-  font-size: 1.4rem;
-  margin-bottom: 16px;
-  display: block;
-}
-
-.proj-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 6px;
-  letter-spacing: -0.01em;
-}
-
-.proj-type {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  color: var(--gold);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-
-.proj-desc {
-  font-size: 0.82rem;
-  color: var(--ink-soft);
-  line-height: 1.7;
-  margin-bottom: 20px;
-}
-
-.proj-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-
-.proj-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  background: var(--bg3);
-  color: var(--ink-soft);
-  padding: 3px 8px;
-  border: 1px solid var(--border);
-  letter-spacing: 0.04em;
-  transition: border-color 0.2s, color 0.2s;
-}
-
-.proj-card:hover .proj-tag { border-color: rgba(196,154,60,0.3); color: var(--ink-mid); }
-
-/* ── SKILLS ── */
-#skills { background: var(--bg); }
-
-.skills-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-}
-
-.skill-group {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s, transform 0.5s;
-}
-
-.skill-group.visible { opacity: 1; transform: translateY(0); }
-
-.skill-group-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--gold);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.skill-group-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-.skill-items { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.skill-item {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  color: var(--ink-mid);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 6px 12px;
-  transition: border-color 0.2s, color 0.2s, transform 0.2s;
-  cursor: default;
-}
-
-.skill-item:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
-
-/* ── CONTACT ── */
-#contact { background: var(--bg2); }
-
-.contact-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: start;
-}
-
-.contact-intro {
-  font-size: 0.95rem;
-  color: var(--ink-mid);
-  line-height: 1.85;
-  margin-bottom: 32px;
-}
-
-.contact-links { display: grid; gap: 16px; }
-
-.contact-link {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 20px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  text-decoration: none;
-  transition: border-color 0.2s, transform 0.2s;
-  opacity: 0;
-  transform: translateX(-16px);
-  transition: opacity 0.5s, transform 0.5s, border-color 0.2s;
-}
-
-.contact-link.visible { opacity: 1; transform: translateX(0); }
-.contact-link:hover { border-color: var(--gold); }
-
-.contact-link-icon {
-  width: 36px; height: 36px;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-
-.contact-link-icon svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-
-.contact-link-label {
-  font-size: 0.72rem;
-  color: var(--ink-soft);
-  font-family: 'JetBrains Mono', monospace;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 2px;
-}
-
-.contact-link-val {
-  font-size: 0.88rem;
-  color: var(--ink);
-  font-weight: 400;
-}
-
-.contact-note {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--gold);
-  padding: 28px;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s, transform 0.5s;
-}
-
-.contact-note.visible { opacity: 1; transform: translateY(0); }
-
-.contact-note-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 12px;
-}
-
-.contact-note-body {
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  line-height: 1.8;
-  margin-bottom: 20px;
-}
-
-.open-to { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.open-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  padding: 5px 12px;
-  border: 1px solid rgba(196,154,60,0.4);
-  color: var(--gold);
-  letter-spacing: 0.06em;
-}
-
-/* ── FOOTER ── */
-footer {
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  padding: 28px 48px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-
-.footer-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--ink-soft);
-}
-
-.footer-name span { color: var(--gold); }
-
-.footer-note {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--ink-soft);
-  letter-spacing: 0.06em;
-}
-
-/* ── KEYFRAMES ── */
-@keyframes lineRise {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes dotPop {
-  0%   { transform: scale(0.3); }
-  70%  { transform: scale(1.3); }
-  100% { transform: scale(1); }
-}
-
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(1); }
-  50%       { opacity: 1;   transform: scaleY(1.1); }
-}
-
-/* ── REVEAL ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  nav { padding: 0 24px; }
-  .nav-links { display: none; }
-  #hero { padding: 80px 24px 0; }
-  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
-  .hero-card { display: none; }
-  .section-wrap { padding: 72px 24px; }
-  .about-grid, .contact-layout { grid-template-columns: 1fr; gap: 40px; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .skills-layout { grid-template-columns: 1fr; gap: 32px; }
-  footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
-}
-
-@media print {
-  nav, .scroll-hint, footer { display: none; }
-  * { animation: none !important; opacity: 1 !important; transform: none !important; }
-}
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1a2d42;
+    --navy-light: #243b55;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: rgba(201,168,76,0.15);
+    --cream: #f5f0e8;
+    --cream-dim: rgba(245,240,232,0.06);
+    --text: #d4cfc7;
+    --text-dim: #7a7670;
+    --white: #ffffff;
+    --mono: 'DM Mono', monospace;
+    --serif: 'Cormorant Garamond', serif;
+    --sans: 'Instrument Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 56px;
+    background: rgba(13,27,42,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 8px 18px;
+    transition: all 0.2s;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold-dim);
+    border-color: var(--gold);
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 56px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-bg-glow {
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(52px, 8vw, 92px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.35s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-desc {
+    font-size: 17px;
+    color: var(--text);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    margin-bottom: 52px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.65s forwards;
+  }
+
+  .hero-stat-num {
+    font-family: var(--serif);
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .hero-stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .btn-primary {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--gold);
+    padding: 14px 32px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); }
+
+  .btn-secondary {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 14px 32px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background: var(--gold-dim);
+    border-color: var(--gold);
+  }
+
+  .hero-side {
+    position: absolute;
+    right: 56px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    opacity: 0;
+    animation: fadeIn 1s 1s forwards;
+  }
+
+  .side-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.12);
+    padding: 20px 24px;
+    min-width: 220px;
+  }
+
+  .side-card-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .side-card-value {
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--cream);
+    font-weight: 400;
+  }
+
+  .side-card-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .status-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 100px 56px;
+    position: relative;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 56px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--navy-mid); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+
+  .about-text strong { color: var(--cream); }
+
+  .about-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .meta-row {
+    display: flex;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 0;
+  }
+
+  .meta-key {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    width: 120px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .meta-val {
+    font-size: 14px;
+    color: var(--cream);
+    line-height: 1.5;
+  }
+
+  .meta-val a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--navy); }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    padding: 48px 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .exp-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+  .exp-left {}
+
+  .exp-company {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .exp-dates {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .exp-location {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .exp-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--navy);
+    background: var(--gold);
+    padding: 3px 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  .exp-badge.past {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .exp-right {}
+
+  .exp-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .exp-bullets li {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 12px;
+  }
+
+  .exp-bullets strong { color: var(--cream); }
+
+  .exp-awards {
+    margin-top: 20px;
+    padding: 14px 18px;
+    background: var(--gold-dim);
+    border-left: 2px solid var(--gold);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold-light);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--navy-mid); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .project-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 32px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .project-card:hover {
+    border-color: rgba(201,168,76,0.25);
+    background: rgba(255,255,255,0.04);
+    transform: translateY(-3px);
+  }
+
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .project-category {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .project-name {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dim);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 3px 9px;
+    letter-spacing: 0.08em;
+  }
+
+  .project-card.personal { border-color: rgba(201,168,76,0.15); }
+  .project-card.personal .project-category { color: var(--gold-light); }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--navy); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .skill-group {
+    background: rgba(255,255,255,0.02);
+    padding: 32px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .skill-group-name {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .skill-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill {
+    font-size: 12px;
+    color: var(--text);
+    background: rgba(255,255,255,0.04);
+    padding: 5px 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.2s;
+  }
+
+  .pill:hover {
+    color: var(--gold);
+    border-color: rgba(201,168,76,0.3);
+    background: var(--gold-dim);
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--navy-mid);
+    text-align: center;
+  }
+
+  .contact-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .contact-desc {
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.75;
+    margin-bottom: 52px;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 52px;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 24px 32px;
+    border: 1px solid rgba(255,255,255,0.08);
+    text-decoration: none;
+    transition: all 0.2s;
+    min-width: 160px;
+  }
+
+  .contact-link:hover {
+    border-color: rgba(201,168,76,0.4);
+    background: var(--gold-dim);
+  }
+
+  .contact-link-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .contact-link-val {
+    font-size: 13px;
+    color: var(--cream);
+  }
+
+  .open-to {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 40px;
+  }
+
+  .open-pill {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 6px 14px;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 28px 56px;
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer span {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── DIVIDER LINE ── */
+  .gold-line {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    section { padding: 72px 24px; }
+    #hero { padding: 100px 24px 60px; }
+    .hero-side { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .exp-item { grid-template-columns: 1fr; gap: 16px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 28px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">CV<span>.</span></a>
+  <a href="#hero" class="nav-logo">CV.</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -847,109 +757,94 @@ footer {
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="Chaitanya_Vaddadi_Resume.pdf" download class="nav-cta">Resume PDF</a>
+  <a href="Chaitanya_Vaddadi_Resume.pdf" class="nav-cta" target="_blank">Resume PDF</a>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="hero-eyebrow">Bengaluru, India &nbsp;·&nbsp; Open to opportunities</div>
-      <h1 class="hero-name">
-        <span class="hero-name-line">Chaitanya</span>
-        <span class="hero-name-line">Vaddadi</span>
-      </h1>
-      <p class="hero-role">
-        <strong>Financial Crime Professional</strong> &nbsp;·&nbsp; AML, Sanctions & Crypto Risk &nbsp;·&nbsp; AI Builder
-      </p>
-      <p class="hero-desc">
-        7+ years detecting financial crime across APAC at Stripe and Amazon. Outside work, I build AI systems, write about fintech, and develop algorithmic trading strategies in Python.
-      </p>
-      <div class="hero-actions">
-        <a href="#experience" class="btn-primary">View Experience</a>
-        <a href="#contact" class="btn-secondary">Get in Touch</a>
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-glow"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Bengaluru, India &nbsp;·&nbsp; Open to opportunities</p>
+    <h1 class="hero-name">Chaitanya<br><em>Vaddadi</em></h1>
+    <p class="hero-desc">Financial Crime professional with 7+ years across APAC — specialising in AML, Sanctions, Crypto Investigations, and LEA liaison. I build detection systems, automate workflows, and develop AI-assisted compliance tools.</p>
+    <div class="hero-stats">
+      <div>
+        <span class="hero-stat-num">7+</span>
+        <span class="hero-stat-label">Years in FinCrime</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">35%</span>
+        <span class="hero-stat-label">False Positive Reduction</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">220h</span>
+        <span class="hero-stat-label">Monthly Hours Saved</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">5×</span>
+        <span class="hero-stat-label">Stripe Awards</span>
       </div>
     </div>
-
-    <div class="hero-card">
-      <div class="card-label">// At a glance</div>
-      <div class="stat-grid">
-        <div class="stat">
-          <div class="stat-val">7+</div>
-          <div class="stat-label">Years in Financial Crime</div>
-        </div>
-        <div class="stat">
-          <div class="stat-val">35%</div>
-          <div class="stat-label">False Positive Reduction</div>
-        </div>
-        <div class="stat">
-          <div class="stat-val">220h</div>
-          <div class="stat-label">Monthly Hours Saved via AI</div>
-        </div>
-        <div class="stat">
-          <div class="stat-val">5×</div>
-          <div class="stat-label">Stripe Awards</div>
-        </div>
-      </div>
-      <div class="divider"></div>
-      <div class="card-label" style="margin-bottom:12px">// Currently at</div>
-      <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:4px">Stripe</div>
-      <div style="font-size:0.78rem;color:var(--ink-soft);margin-bottom:16px">Financial Crimes Operations — APAC</div>
-      <div class="divider"></div>
-      <div class="card-label" style="margin-bottom:12px">// Also building</div>
-      <div class="pill-list">
-        <span class="pill">OpenClaw AI</span>
-        <span class="pill">Algo Trading</span>
-        <span class="pill">budgetmateai.com</span>
-      </div>
+    <div class="hero-actions">
+      <a href="#experience" class="btn-primary">View Experience</a>
+      <a href="#contact" class="btn-secondary">Get in Touch</a>
     </div>
   </div>
 
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
+  <div class="hero-side">
+    <div class="side-card">
+      <div class="side-card-label">Status</div>
+      <div class="side-card-value"><span class="status-dot"></span>Open to roles</div>
+      <div class="side-card-sub">FinCrime · Fraud · Compliance</div>
+    </div>
+    <div class="side-card">
+      <div class="side-card-label">Most Recent</div>
+      <div class="side-card-value">Stripe</div>
+      <div class="side-card-sub">Financial Crimes Ops, APAC · 2023–2026</div>
+    </div>
+    <div class="side-card">
+      <div class="side-card-label">Expertise</div>
+      <div class="side-card-value">Crypto · LEA · AML</div>
+      <div class="side-card-sub">TRM Labs · Databricks · Python</div>
+    </div>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <span class="section-num">01</span>
-      <h2 class="section-title">About</h2>
-      <div class="section-line"></div>
+  <div class="section-label">01 — About</div>
+  <div class="section-title">The work.<br><em>The builder.</em></div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm a Financial Crime specialist with deep expertise in <strong>AML transaction monitoring, sanctions screening, crypto investigations, and Law Enforcement liaison</strong> — most recently at Stripe where I owned APAC-wide surveillance operations and led AI adoption across the Financial Crimes function.</p>
+      <p>What sets me apart is the combination of <strong>operational rigour and technical depth</strong>. I don't just work with detection systems — I build tools, automate workflows, and actively develop AI-assisted solutions. I've built transaction analysis platforms using Databricks, designed AI-powered URL screening tools, and automated compliance reporting pipelines.</p>
+      <p>I'm interested in roles where <strong>compliance, technology, and risk</strong> intersect — whether that's leading a Financial Crime team, shaping detection strategy, or working at the frontier of AI-assisted compliance and blockchain investigations.</p>
     </div>
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <p>I'm a Financial Crime specialist with deep expertise in <strong>AML transaction monitoring, sanctions screening, and crypto investigations</strong> — currently at Stripe where I own APAC-wide surveillance operations and lead AI adoption programmes across the Financial Crimes function.</p>
-        <p>What sets me apart is the combination of <strong>operational rigour and technical depth</strong>. I don't just work with detection systems — I build tools, automate workflows, and actively experiment with AI. I've built and deployed a personal AI assistant using OpenClaw, developed quantitative trading algorithms for Indian equity markets and gold, and run a blog covering AI and finance.</p>
-        <p>I'm interested in roles where <strong>compliance, technology, and risk</strong> intersect — whether that's leading a Financial Crime team, shaping detection strategy, or working at the frontier of AI-assisted compliance.</p>
+    <div class="about-meta reveal">
+      <div class="meta-row">
+        <span class="meta-key">Location</span>
+        <span class="meta-val">Bengaluru, Karnataka, India</span>
       </div>
-      <div>
-        <div class="fact-row" data-delay="0">
-          <div class="fact-key">Location</div>
-          <div class="fact-val">Bengaluru, Karnataka, India</div>
-        </div>
-        <div class="fact-row" data-delay="80">
-          <div class="fact-key">Current</div>
-          <div class="fact-val"><strong>Stripe</strong> — Financial Crimes Ops, APAC</div>
-        </div>
-        <div class="fact-row" data-delay="160">
-          <div class="fact-key">Expertise</div>
-          <div class="fact-val">AML · Sanctions · Crypto Risk · Fraud</div>
-        </div>
-        <div class="fact-row" data-delay="240">
-          <div class="fact-key">Tech</div>
-          <div class="fact-val">Python · SQL · Power BI · Claude API</div>
-        </div>
-        <div class="fact-row" data-delay="320">
-          <div class="fact-key">Building</div>
-          <div class="fact-val">OpenClaw AI · Algo Trading Systems</div>
-        </div>
-        <div class="fact-row" data-delay="400">
-          <div class="fact-key">Writing</div>
-          <div class="fact-val"><a href="https://budgetmateai.com" target="_blank" style="color:var(--gold);text-decoration:none">budgetmateai.com</a> — AI & Finance</div>
-        </div>
+      <div class="meta-row">
+        <span class="meta-key">Most Recent</span>
+        <span class="meta-val"><strong>Stripe</strong> — Financial Crimes Ops, APAC (2023–2026)</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">Expertise</span>
+        <span class="meta-val">AML · Sanctions · Crypto Risk · LEA Liaison · Fraud</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">Tech</span>
+        <span class="meta-val">Python · SQL · Databricks · Power BI · TRM Labs</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">Building</span>
+        <span class="meta-val">Algo Trading Systems · AI Compliance Tools</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">Writing</span>
+        <span class="meta-val"><a href="https://budgetmateai.com" target="_blank">budgetmateai.com</a> — AI &amp; Finance</span>
       </div>
     </div>
   </div>
@@ -957,167 +852,265 @@ footer {
 
 <!-- EXPERIENCE -->
 <section id="experience">
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <span class="section-num">02</span>
-      <h2 class="section-title">Experience</h2>
-      <div class="section-line"></div>
+  <div class="section-label">02 — Experience</div>
+  <div class="section-title">Where I've<br><em>made impact.</em></div>
+
+  <!-- STRIPE -->
+  <div class="exp-item reveal">
+    <div class="exp-left">
+      <div class="exp-company">Stripe</div>
+      <div class="exp-dates">Jan 2023 – Mar 2026</div>
+      <div class="exp-location">Bengaluru</div>
+      <div class="exp-badge past">Past Role</div>
     </div>
-
-    <div class="timeline">
-
-      <div class="exp-item" data-delay="0">
-        <div class="exp-meta">
-          <div class="exp-company">Stripe</div>
-          <span class="exp-badge">Current</span>
-          <div class="exp-date">Jan 2026 – Present</div>
-        </div>
-        <div class="exp-role">Financial Crimes Operations — KYC, Sanctions & AML &nbsp;<span class="exp-loc">· Bengaluru</span></div>
-        <div class="exp-body">
-          <ul class="exp-bullets">
-            <li>Own APAC AML surveillance end-to-end: rule performance analysis via SQL, threshold recalibration, and pre-deployment validation across Transaction Monitoring and Customer Risk Rating controls.</li>
-            <li>Second-line control oversight; partner with Compliance and 1LoD to close control gaps and ensure regulatory preparedness across APAC jurisdictions.</li>
-            <li>Spearheaded Crypto Investigations as primary subject-matter resource; designed and delivered training across <span class="hl">3 analyst cohorts</span> on blockchain tracing and entity resolution using TRM Labs.</li>
-            <li>Designed AI-driven sanctions screening workflows — <span class="hl">30% reduction</span> in manual review time; governance checkpoints to validate AI outputs pre-deployment.</li>
-            <li>Delivered <span class="hl">35% false positive reduction</span>, <span class="hl">~220 hrs/month saved</span>, and <span class="hl">40% faster</span> decision cycles — reported quarterly to VP leadership.</li>
-            <li>Lean-style redesign of sanctions triage — <span class="hl">38% AHT reduction</span>, improved audit traceability and SLA compliance.</li>
-            <li>Mentored junior analysts; drove governance best practices now used across APAC team; reduced new-hire ramp time by <span class="hl">~40%</span>.</li>
-          </ul>
-          <div class="award-line"><strong>Awards:</strong> Stripe Excellence (Q4 2023, Q2 2024, Q2 2025) &nbsp;·&nbsp; FinCrimes Innovation (Q4 2024) &nbsp;·&nbsp; SDC Bridge Builder (Q4 2024)</div>
-        </div>
+    <div class="exp-right">
+      <div class="exp-title">Financial Crimes Operations<br>KYC, Sanctions &amp; AML</div>
+      <ul class="exp-bullets">
+        <li>Served as Stripe's primary <strong>crypto investigations SME for APAC</strong>; led complex blockchain tracing, entity resolution, and on-chain typology analysis using TRM Labs graph analysis — driving accurate attribution, stronger case narratives, and improved investigative outcomes across fraud, sanctions, and money laundering cases.</li>
+        <li>Responded to <strong>Law Enforcement Agency (LEA) requests</strong> and legal process (subpoenas, production orders, freeze requests) by coordinating cross-functionally with Legal and Compliance to deliver accurate, audit-ready disclosures within required timelines.</li>
+        <li>Managed end-to-end <strong>SAR/STR/UAR filing process</strong> across APAC jurisdictions; identified reportable activity through transaction monitoring alerts, conducted supporting investigations, and ensured timely submission in line with regulatory deadlines.</li>
+        <li>Managed <strong>banking partner RFI responses</strong> for merchant payout reviews; assessed flagged transactions, compiled KYC documentation and transaction narratives, and liaised with banking partners to resolve holds.</li>
+        <li>Owned APAC AML surveillance end-to-end: rule performance analysis via SQL, threshold recalibration, and pre-deployment validation across Transaction Monitoring and Customer Risk Rating controls.</li>
+        <li>Designed <strong>AI-driven sanctions screening workflows</strong> — 30% reduction in manual review time; implemented governance checkpoints to validate AI outputs pre-deployment.</li>
+        <li>Delivered <strong>35% false positive reduction</strong>, ~220 hrs/month saved, and 40% faster decision cycles — reported quarterly to VP-level stakeholders.</li>
+        <li>Applied Lean-style workflow redesign to sanctions triage — <strong>38% AHT reduction</strong>, improved audit traceability and SLA compliance.</li>
+        <li>Mentored junior analysts; drove governance best practices adopted across the APAC team; reduced new-hire ramp time by ~40%.</li>
+      </ul>
+      <div class="exp-awards">
+        🏆 Stripe Excellence (Q4 2023, Q2 2024, Q2 2025) &nbsp;·&nbsp; FinCrimes Innovation (Q4 2024) &nbsp;·&nbsp; SDC Bridge Builder (Q4 2024)
       </div>
+    </div>
+  </div>
 
-      <div class="exp-item" data-delay="100">
-        <div class="exp-meta">
-          <div class="exp-company">Newfold Digital</div>
-          <div class="exp-date">Sep 2022 – Jan 2023</div>
-        </div>
-        <div class="exp-role">Fraud Specialist &nbsp;<span class="exp-loc">· Mumbai (Remote)</span></div>
-        <div class="exp-body">
-          <ul class="exp-bullets">
-            <li>Mitigated payment fraud and account compromise across high-volume environments; partnered with Engineering to close security gaps and restore service continuity.</li>
-            <li>Applied trend analysis to identify emerging fraud typologies; control adjustments reduced repeat incidents and improved detection precision.</li>
-          </ul>
-        </div>
-      </div>
+  <!-- NEWFOLD -->
+  <div class="exp-item reveal">
+    <div class="exp-left">
+      <div class="exp-company">Newfold Digital</div>
+      <div class="exp-dates">Sep 2022 – Jan 2023</div>
+      <div class="exp-location">Mumbai (Remote)</div>
+      <div class="exp-badge past">Past Role</div>
+    </div>
+    <div class="exp-right">
+      <div class="exp-title">Fraud Specialist</div>
+      <ul class="exp-bullets">
+        <li>Mitigated payment fraud and account compromise across high-volume transaction environments; partnered with Engineering to close security gaps and restore service continuity.</li>
+        <li>Applied trend analysis and segmentation to identify emerging fraud typologies; control adjustments reduced repeat incidents and improved detection precision.</li>
+      </ul>
+    </div>
+  </div>
 
-      <div class="exp-item" data-delay="200">
-        <div class="exp-meta">
-          <div class="exp-company">Amazon</div>
-          <div class="exp-date">Jun 2019 – Aug 2022</div>
-        </div>
-        <div class="exp-role">Investigation Specialist — Fraud & Risk &nbsp;<span class="exp-loc">· Hyderabad</span></div>
-        <div class="exp-body">
-          <ul class="exp-bullets">
-            <li>Root-cause analysis across <span class="hl">1,200+ monthly fraud cases</span>; authored SOPs reducing escalations by <span class="hl">20%</span>.</li>
-            <li>Segmentation analysis identified undocumented fraud patterns; control adjustments decreased reputational risk incidents by <span class="hl">22% YoY</span>.</li>
-            <li>Partnered with Product and Engineering on detection workflows; threshold adjustments improved resolution efficiency by <span class="hl">15%</span>.</li>
-            <li>Consistently ranked top performer across account takeover, payment fraud, and policy abuse investigations.</li>
-          </ul>
-        </div>
-      </div>
-
+  <!-- AMAZON -->
+  <div class="exp-item reveal">
+    <div class="exp-left">
+      <div class="exp-company">Amazon</div>
+      <div class="exp-dates">Jun 2019 – Aug 2022</div>
+      <div class="exp-location">Hyderabad</div>
+      <div class="exp-badge past">Past Role</div>
+    </div>
+    <div class="exp-right">
+      <div class="exp-title">Investigation Specialist<br>Fraud &amp; Risk</div>
+      <ul class="exp-bullets">
+        <li>Root-cause analysis and loss attribution across <strong>1,200+ monthly fraud cases</strong>; authored SOPs reducing escalations by 20%.</li>
+        <li>Segmentation analysis identified undocumented fraud patterns; control adjustments decreased reputational risk incidents by <strong>22% YoY</strong>.</li>
+        <li>Partnered with Product and Engineering on detection workflows; threshold adjustments improved resolution efficiency by 15%.</li>
+        <li>Consistently ranked top performer across account takeover, payment fraud, and policy abuse investigations.</li>
+      </ul>
     </div>
   </div>
 </section>
 
 <!-- PROJECTS -->
 <section id="projects">
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <span class="section-num">03</span>
-      <h2 class="section-title">Projects</h2>
-      <div class="section-line"></div>
+  <div class="section-label">03 — Projects</div>
+  <div class="section-title">Things I've<br><em>built.</em></div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-icon">📊</div>
+      <div class="project-category">Financial Crime · Internal Tool</div>
+      <div class="project-name">Transaction Analysis Dashboard</div>
+      <div class="project-desc">Built a SQL-based AML transaction monitoring dashboard, then extended it using Python and Databricks to process datasets exceeding 500,000 transactions at scale — significantly expanding investigative analytical capacity for the Financial Crime team.</div>
+      <div class="project-tags">
+        <span class="tag">SQL</span>
+        <span class="tag">Python</span>
+        <span class="tag">Databricks</span>
+        <span class="tag">AML</span>
+      </div>
     </div>
-    <div class="projects-grid">
 
-      <div class="proj-card" data-delay="0">
-        <span class="proj-icon">🤖</span>
-        <div class="proj-name">Personal AI Assistant</div>
-        <div class="proj-type">OpenClaw · Self-hosted</div>
-        <p class="proj-desc">Built a fully autonomous personal AI assistant using the OpenClaw framework — self-hosted with persistent memory, custom skills, and multi-channel routing. Runs 24/7 connected to messaging platforms and local tools.</p>
-        <div class="proj-tags">
-          <span class="proj-tag">OpenClaw</span>
-          <span class="proj-tag">Claude API</span>
-          <span class="proj-tag">Node.js</span>
-          <span class="proj-tag">Self-hosted</span>
-        </div>
+    <div class="project-card reveal">
+      <div class="project-icon">⏱️</div>
+      <div class="project-category">AML Operations · Management Reporting</div>
+      <div class="project-name">AML Case Lifecycle Dashboard</div>
+      <div class="project-desc">Built a dashboard visualising the full AML case lifecycle from creation to filing — showing aging buckets (1–5, 6–10 days, etc.) against the 45-day SLA. Enabled management to identify bottlenecks and monitor throughput in real time.</div>
+      <div class="project-tags">
+        <span class="tag">SQL</span>
+        <span class="tag">BI Dashboard</span>
+        <span class="tag">SLA Tracking</span>
+        <span class="tag">AML</span>
       </div>
-
-      <div class="proj-card" data-delay="120">
-        <span class="proj-icon">📈</span>
-        <div class="proj-name">Algorithmic Trading Systems</div>
-        <div class="proj-type">Python · Private GitHub</div>
-        <p class="proj-desc">Quantitative trading strategies for Indian equity markets and XAUUSD — 2-min Reversal, Iron Condor, Opening Range Breakout (15min & 60min), and an Engulfing Pattern algorithm for gold. Full backtesting and risk management.</p>
-        <div class="proj-tags">
-          <span class="proj-tag">Python</span>
-          <span class="proj-tag">ORB</span>
-          <span class="proj-tag">Iron Condor</span>
-          <span class="proj-tag">XAUUSD</span>
-          <span class="proj-tag">Backtesting</span>
-        </div>
-      </div>
-
-      <div class="proj-card" data-delay="240">
-        <span class="proj-icon">✍️</span>
-        <div class="proj-name">BudgetMate AI</div>
-        <div class="proj-type"><a href="https://budgetmateai.com" target="_blank" style="color:inherit">budgetmateai.com</a> · Blog</div>
-        <p class="proj-desc">Self-hosted blog covering AI and personal finance — AI-assisted budgeting, trading automation, and practical fintech. Independently written and operated on a personal server.</p>
-        <div class="proj-tags">
-          <span class="proj-tag">AI & Finance</span>
-          <span class="proj-tag">Self-hosted</span>
-          <span class="proj-tag">Fintech</span>
-        </div>
-      </div>
-
     </div>
+
+    <div class="project-card reveal">
+      <div class="project-icon">🔍</div>
+      <div class="project-category">Sanctions · High-Risk Content Detection</div>
+      <div class="project-name">Transaction Pattern Analysis</div>
+      <div class="project-desc">Developed a pattern detection tool for Sanctions and high-risk content activity — pulling transaction and charges data via SQL, then using Python to detect suspicious card names, mnemonics, and transaction patterns indicative of illicit activity.</div>
+      <div class="project-tags">
+        <span class="tag">SQL</span>
+        <span class="tag">Python</span>
+        <span class="tag">Sanctions</span>
+        <span class="tag">Pattern Detection</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-icon">🌐</div>
+      <div class="project-category">AI · Sanctions Screening</div>
+      <div class="project-name">AI URL Screening Tool</div>
+      <div class="project-desc">Built an AI-powered tool to detect sanctions-related keywords across merchant websites — automating website screening and making the process <strong>40% faster</strong>. Integrated an internal LLM for intelligent, context-aware keyword identification.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">LLM Integration</span>
+        <span class="tag">Sanctions</span>
+        <span class="tag">Automation</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-icon">📋</div>
+      <div class="project-category">KYC Operations · Management Reporting</div>
+      <div class="project-name">KYC Metrics Dashboard</div>
+      <div class="project-desc">Built SQL-based dashboards for KYC operations, surfacing case intake volumes and daily, weekly, and monthly throughput metrics — formatted for WBR/MBR consumption by managers and senior stakeholders.</div>
+      <div class="project-tags">
+        <span class="tag">SQL</span>
+        <span class="tag">KYC</span>
+        <span class="tag">WBR/MBR</span>
+        <span class="tag">Reporting</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-icon">🤖</div>
+      <div class="project-category">Automation · AML Reporting</div>
+      <div class="project-name">Automated EOD Metrics Reporter</div>
+      <div class="project-desc">Built an automated end-of-day reporting tool that pulls AML case metrics from Hummingbird and pushes formatted reports to Google Sheets and Excel — eliminating manual daily reporting overhead for the operations team.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Hummingbird</span>
+        <span class="tag">Google Sheets</span>
+        <span class="tag">Excel</span>
+      </div>
+    </div>
+
+    <div class="project-card personal reveal">
+      <div class="project-icon">📈</div>
+      <div class="project-category">Personal · Quantitative Finance</div>
+      <div class="project-name">Algorithmic Trading Systems</div>
+      <div class="project-desc">Quantitative trading strategies for Indian equity markets and XAUUSD — 2-min Reversal, Iron Condor, Opening Range Breakout (15min &amp; 60min), and an Engulfing Pattern algorithm for gold. Full backtesting and risk management.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">ORB</span>
+        <span class="tag">Iron Condor</span>
+        <span class="tag">XAUUSD</span>
+        <span class="tag">Backtesting</span>
+      </div>
+    </div>
+
+    <div class="project-card personal reveal">
+      <div class="project-icon">✍️</div>
+      <div class="project-category">Personal · Writing</div>
+      <div class="project-name">BudgetMate AI</div>
+      <div class="project-desc">Blog covering AI and personal finance — AI-assisted budgeting, trading automation, and practical fintech. Independently written and operated.</div>
+      <div class="project-tags">
+        <span class="tag">AI &amp; Finance</span>
+        <span class="tag">Fintech</span>
+        <span class="tag">Writing</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- SKILLS -->
 <section id="skills">
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <span class="section-num">04</span>
-      <h2 class="section-title">Skills</h2>
-      <div class="section-line"></div>
+  <div class="section-label">04 — Skills</div>
+  <div class="section-title">What I<br><em>bring.</em></div>
+  <div class="skills-grid">
+    <div class="skill-group reveal">
+      <div class="skill-group-name">Financial Crime</div>
+      <div class="skill-pills">
+        <span class="pill">AML</span>
+        <span class="pill">KYC</span>
+        <span class="pill">Sanctions Screening</span>
+        <span class="pill">Transaction Monitoring</span>
+        <span class="pill">EDD</span>
+        <span class="pill">Crypto Investigations</span>
+        <span class="pill">Blockchain Analytics</span>
+        <span class="pill">TRM Labs</span>
+        <span class="pill">LEA Liaison</span>
+        <span class="pill">SAR/STR/UAR Filing</span>
+        <span class="pill">RFI Management</span>
+        <span class="pill">Fraud Prevention</span>
+      </div>
     </div>
-    <div class="skills-layout">
-      <div class="skill-group" data-delay="0">
-        <div class="skill-group-title">Financial Crime</div>
-        <div class="skill-items">
-          <span class="skill-item">AML</span><span class="skill-item">KYC</span><span class="skill-item">Sanctions Screening</span><span class="skill-item">Transaction Monitoring</span><span class="skill-item">EDD</span><span class="skill-item">Crypto Investigations</span><span class="skill-item">TRM Labs</span><span class="skill-item">Fraud Prevention</span>
-        </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-name">Detection &amp; Controls</div>
+      <div class="skill-pills">
+        <span class="pill">Rule Design</span>
+        <span class="pill">Threshold Calibration</span>
+        <span class="pill">Alert Management</span>
+        <span class="pill">False Positive Reduction</span>
+        <span class="pill">Audit Readiness</span>
+        <span class="pill">2LoD Oversight</span>
+        <span class="pill">Pattern Detection</span>
       </div>
-      <div class="skill-group" data-delay="80">
-        <div class="skill-group-title">Detection & Controls</div>
-        <div class="skill-items">
-          <span class="skill-item">Rule Design</span><span class="skill-item">Threshold Calibration</span><span class="skill-item">Alert Management</span><span class="skill-item">False Positive Reduction</span><span class="skill-item">Audit Readiness</span><span class="skill-item">2LoD Oversight</span>
-        </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-name">Technology</div>
+      <div class="skill-pills">
+        <span class="pill">Python</span>
+        <span class="pill">SQL</span>
+        <span class="pill">Databricks</span>
+        <span class="pill">Excel/VBA</span>
+        <span class="pill">Power BI</span>
+        <span class="pill">Tableau</span>
+        <span class="pill">Salesforce</span>
+        <span class="pill">Jira</span>
+        <span class="pill">Hummingbird</span>
+        <span class="pill">Google Sheets API</span>
       </div>
-      <div class="skill-group" data-delay="160">
-        <div class="skill-group-title">Technology</div>
-        <div class="skill-items">
-          <span class="skill-item">Python</span><span class="skill-item">SQL</span><span class="skill-item">Excel/VBA</span><span class="skill-item">Power BI</span><span class="skill-item">Tableau</span><span class="skill-item">Salesforce</span><span class="skill-item">Jira</span><span class="skill-item">Claude API</span><span class="skill-item">OpenClaw</span>
-        </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-name">Governance</div>
+      <div class="skill-pills">
+        <span class="pill">APAC Regulatory</span>
+        <span class="pill">KPI/KRI Tracking</span>
+        <span class="pill">SOP Development</span>
+        <span class="pill">Policy Interpretation</span>
+        <span class="pill">Change Management</span>
+        <span class="pill">WBR/MBR Reporting</span>
       </div>
-      <div class="skill-group" data-delay="240">
-        <div class="skill-group-title">Trading & Quant</div>
-        <div class="skill-items">
-          <span class="skill-item">Algo Trading</span><span class="skill-item">ORB Strategy</span><span class="skill-item">Iron Condor</span><span class="skill-item">XAUUSD</span><span class="skill-item">Backtesting</span><span class="skill-item">Risk Management</span>
-        </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-name">Trading &amp; Quant</div>
+      <div class="skill-pills">
+        <span class="pill">Algo Trading</span>
+        <span class="pill">ORB Strategy</span>
+        <span class="pill">Iron Condor</span>
+        <span class="pill">XAUUSD</span>
+        <span class="pill">Backtesting</span>
+        <span class="pill">Risk Management</span>
       </div>
-      <div class="skill-group" data-delay="320">
-        <div class="skill-group-title">Governance</div>
-        <div class="skill-items">
-          <span class="skill-item">APAC Regulatory</span><span class="skill-item">KPI/KRI Tracking</span><span class="skill-item">SOP Development</span><span class="skill-item">Change Management</span><span class="skill-item">Policy Interpretation</span>
-        </div>
-      </div>
-      <div class="skill-group" data-delay="400">
-        <div class="skill-group-title">People</div>
-        <div class="skill-items">
-          <span class="skill-item">Mentoring</span><span class="skill-item">Stakeholder Management</span><span class="skill-item">Executive Reporting</span><span class="skill-item">Hiring & Onboarding</span>
-        </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-name">People</div>
+      <div class="skill-pills">
+        <span class="pill">Mentoring</span>
+        <span class="pill">Stakeholder Management</span>
+        <span class="pill">Executive Reporting</span>
+        <span class="pill">Hiring &amp; Onboarding</span>
+        <span class="pill">Cross-functional Leadership</span>
       </div>
     </div>
   </div>
@@ -1125,104 +1118,68 @@ footer {
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <span class="section-num">05</span>
-      <h2 class="section-title">Contact</h2>
-      <div class="section-line"></div>
+  <div class="section-label">05 — Contact</div>
+  <div class="contact-inner">
+    <div class="section-title" style="margin-bottom:24px;">Let's<br><em>connect.</em></div>
+    <p class="contact-desc">Open to new opportunities in Financial Crime, Fraud Risk, Blockchain Investigations, and Compliance — specialist, senior, or management level. Feel free to reach out directly.</p>
+    <div class="contact-links">
+      <a href="mailto:venkatchaitanya.v@gmail.com" class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-val">venkatchaitanya.v@gmail.com</span>
+      </a>
+      <a href="https://linkedin.com/in/chaitanyavaddadi" class="contact-link" target="_blank">
+        <span class="contact-link-label">LinkedIn</span>
+        <span class="contact-link-val">in/chaitanyavaddadi</span>
+      </a>
+      <a href="https://budgetmateai.com" class="contact-link" target="_blank">
+        <span class="contact-link-label">Blog</span>
+        <span class="contact-link-val">budgetmateai.com</span>
+      </a>
     </div>
-    <div class="contact-layout">
-      <div>
-        <p class="contact-intro reveal">I'm open to new opportunities in Financial Crime, Fraud Risk, and Compliance — whether specialist, senior, or management roles. Feel free to reach out directly.</p>
-        <div class="contact-links">
-
-          <a href="mailto:venkatchaitanya.v@gmail.com" class="contact-link" data-delay="0">
-            <div class="contact-link-icon">
-              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-            </div>
-            <div>
-              <span class="contact-link-label">Email</span>
-              <span class="contact-link-val">venkatchaitanya.v@gmail.com</span>
-            </div>
-          </a>
-
-          <a href="https://linkedin.com/in/chaitanyavaddadi" target="_blank" class="contact-link" data-delay="80">
-            <div class="contact-link-icon">
-              <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-            </div>
-            <div>
-              <span class="contact-link-label">LinkedIn</span>
-              <span class="contact-link-val">linkedin.com/in/chaitanyavaddadi</span>
-            </div>
-          </a>
-
-          <a href="https://budgetmateai.com" target="_blank" class="contact-link" data-delay="160">
-            <div class="contact-link-icon">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            </div>
-            <div>
-              <span class="contact-link-label">Blog</span>
-              <span class="contact-link-val">budgetmateai.com</span>
-            </div>
-          </a>
-
-        </div>
-      </div>
-
-      <div class="contact-note" data-delay="0">
-        <div class="contact-note-title">Open to</div>
-        <p class="contact-note-body">Roles in Financial Crime detection, AML/Sanctions operations, Fraud risk, and Compliance — at fintech, payments, banking, or trust & safety organisations across APAC and globally.</p>
-        <div class="open-to">
-          <span class="open-tag">Financial Crime Manager</span>
-          <span class="open-tag">AML Specialist</span>
-          <span class="open-tag">Sanctions Lead</span>
-          <span class="open-tag">Fraud Risk</span>
-          <span class="open-tag">Compliance Ops</span>
-          <span class="open-tag">Trust & Safety</span>
-        </div>
-      </div>
-
+    <div class="open-to">
+      <span class="open-pill">Financial Crime Manager</span>
+      <span class="open-pill">Blockchain Investigator</span>
+      <span class="open-pill">AML Specialist</span>
+      <span class="open-pill">Sanctions Lead</span>
+      <span class="open-pill">LEA Liaison</span>
+      <span class="open-pill">Fraud Risk</span>
+      <span class="open-pill">Compliance Ops</span>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-name">Chaitanya<span>.</span>Vaddadi</div>
-  <div class="footer-note">Updated March 2026 &nbsp;·&nbsp; Bengaluru, India</div>
+  <span>Chaitanya Vaddadi</span>
+  <span>Updated April 2026 · Bengaluru, India</span>
 </footer>
 
 <script>
-// Universal scroll reveal
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const delay = parseInt(e.target.dataset.delay || 0);
-    setTimeout(() => e.target.classList.add('visible'), delay);
-    io.unobserve(e.target);
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Nav active state
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 100) current = section.id;
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === `#${current}` ? 'var(--gold)' : '';
+    });
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll(
-  '.reveal, .fact-row, .exp-item, .proj-card, .skill-group, .contact-link, .contact-note'
-).forEach(el => io.observe(el));
-
-// Active nav link on scroll
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
-
-const navObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      navLinks.forEach(a => {
-        a.style.color = a.getAttribute('href') === '#' + e.target.id ? 'var(--gold)' : '';
-      });
-    }
-  });
-}, { threshold: 0.4 });
-
-sections.forEach(s => navObserver.observe(s));
 </script>
-
 </body>
 </html>
